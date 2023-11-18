@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DrawField : MonoBehaviour
 {
-    public GameObject cell;
+    
+    private GameObject cell;
+
     void Start()
     {
         
