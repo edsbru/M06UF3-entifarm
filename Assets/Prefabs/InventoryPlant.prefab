@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4337394688963590737}
   - component: {fileID: 2794055076410951901}
   - component: {fileID: 2810379545070382200}
-  - component: {fileID: 7156430607523819700}
+  - component: {fileID: 6029558632906774828}
   m_Layer: 5
-  m_Name: PlantCell
+  m_Name: InventoryPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,9 +123,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7156430607523819700}
-        m_TargetAssemblyTypeName: PlantCellLogic, Assembly-CSharp
-        m_MethodName: onPlantCellClick
+      - m_Target: {fileID: 6029558632906774828}
+        m_TargetAssemblyTypeName: InventoryPlant, Assembly-CSharp
+        m_MethodName: setSelectedPlant
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7156430607523819700
+--- !u!114 &6029558632906774828
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,12 +144,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 971189290152966173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d977259aaddc0af459767f4191064d33, type: 3}
+  m_Script: {fileID: 11500000, guid: 223496ece3665c941940f9d2e5ef0415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldPosX: 0
-  fieldPosY: 0
-  selector: {fileID: 0}
 --- !u!1 &1809512129371096601
 GameObject:
   m_ObjectHideFlags: 0

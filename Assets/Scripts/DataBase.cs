@@ -2,43 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//librerías para usar la BD
 using System.Data;
 using Mono.Data.Sqlite;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class DataBase : MonoBehaviour
 {
-    IDbConnection conn;//abre conexión con la base de datos
+    IDbConnection conn;//declaramos la conexión con la base de datos
 
     string dbName = "entifarm.db";//hacemos un string para llamar al archivo con la base de datos
 
-    List<Plant> plantsList = new List<Plant>();
+    List<Plant> plantsList = new List<Plant>();//Declaramos una lista de plantas
 
     void Start()
     {
-        conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));//Abrimos la conexión con la base de datos
-        conn.Open();
+        
+        conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
+        conn.Open();//Abrimos la conexión con la base de datos
 
-        getPlants();
+        plantsList = getPlants();//Esta función pasará por toda la tabla de plantas
+
     }
 
-    void Update()
+    public List<Plant> getPlants()
     {
+        List<Plant> plantsTMP = new List<Plant>();
         
-        
-    }
-
-    void getPlants()
-    {
         IDbCommand cmd = conn.CreateCommand();//Nos permite mandar queries, hay que crear para cada función nueva
 
-        cmd.CommandText = "SELECT * FROM plants";
+        cmd.CommandText = "SELECT * FROM plants";//Mandamos la query
 
-        IDataReader reader = cmd.ExecuteReader();//nos permite iterar por la base de datos
+        IDataReader reader = cmd.ExecuteReader();//función que funciona como un iterador de la BD, ahora apunta a null
 
         while (reader.Read())//al hacer reader.Read() le decimos al iterador que vaya a la siguiente casilla
         {
-            Plant p = new Plant();
+            Plant p = new Plant();//crea una planta
 
             p.id_plant = reader.GetInt32(0);//devuelve el id, los ids de las entradas va del 0 al x.
             p.plant = reader.GetString(1);
@@ -47,8 +46,10 @@ public class DataBase : MonoBehaviour
             p.sell = reader.GetFloat(4);
             p.buy = reader.GetFloat(5);
 
-
-            plantsList.Add(p);
+            plantsTMP.Add(p);
         }
+
+        return plantsTMP;
+        
     }
 }
