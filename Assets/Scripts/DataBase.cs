@@ -13,7 +13,7 @@ public class DataBase : MonoBehaviour
 
     string dbName = "entifarm.db";//hacemos un string para llamar al archivo con la base de datos
 
-    List<Plant> plantsList = new List<Plant>();//Declaramos una lista de plantas
+    public List<Plant> plantsListDB = new List<Plant>();//Declaramos una lista de plantas
 
     void Start()
     {
@@ -21,8 +21,8 @@ public class DataBase : MonoBehaviour
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();//Abrimos la conexión con la base de datos
 
-        plantsList = getPlants();//Esta función pasará por toda la tabla de plantas
-
+        plantsListDB = getPlants();//Esta función pasará por toda la tabla de plantas
+        
     }
 
     public List<Plant> getPlants()
@@ -43,8 +43,8 @@ public class DataBase : MonoBehaviour
             p.plant = reader.GetString(1);
             p.time = reader.GetFloat(2);
             p.quantity = reader.GetInt32(3);
-            p.sell = reader.GetFloat(4);
-            p.buy = reader.GetFloat(5);
+            p.sell = reader.GetInt32(4);
+            p.buy = reader.GetInt32(5);
 
             plantsTMP.Add(p);
         }

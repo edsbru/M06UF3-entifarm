@@ -10,17 +10,15 @@ public struct Plant
     public string plant;
     public float time;
     public int quantity;
-    public float sell;
-    public float buy;
+    public int sell;
+    public int buy;
 }
 
 
 public class InventoryPlant : MonoBehaviour
 {
-    public enum Plants { Nabo, Patata, Col }
-    public Plants plants;
-
-    Plant plant;
+ 
+    public Plant plant;
     public PlantSelector selector;
     
     
@@ -28,23 +26,9 @@ public class InventoryPlant : MonoBehaviour
   
     private void Start()
     {
+
         selector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>(); //Buscar en la escena el objeto PlantSelector
        
-        //TODO: Poner todas las variables de una planta
-        switch (plants)
-        {
-            case Plants.Nabo:
-                plant.plant = "Nabo";
-                break;
-            case Plants.Patata:
-                plant.plant = "Patata";
-                break;
-            case Plants.Col:
-                plant.plant = "Col";
-                break;
-        }
-     
-
     }
 
     public void setSelectedPlant()
