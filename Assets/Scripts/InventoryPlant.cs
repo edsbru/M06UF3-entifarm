@@ -20,8 +20,7 @@ public class InventoryPlant : MonoBehaviour
  
     public Plant plant;
     public PlantSelector selector;
-    
-    
+  
 
   
     private void Start()
@@ -33,7 +32,10 @@ public class InventoryPlant : MonoBehaviour
 
     public void setSelectedPlant()
     {
-        selector.selectedPlant = plant;
+        if(plant.quantity > 0) {
+            selector.selectedPlant = plant;
+            selector.selectedSeed = this;
+        }
     }
 
 

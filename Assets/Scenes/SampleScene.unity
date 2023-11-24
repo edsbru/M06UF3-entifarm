@@ -407,8 +407,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1731919979}
   m_HandleRect: {fileID: 1731919978}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99975395
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -905,6 +905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dbList: {fileID: 1814261147}
   seedButton: {fileID: 971189290152966173, guid: 1cbecd231fb7d414bb7c0505d3c58504, type: 3}
+  inventoryButtons: []
 --- !u!1 &1942790501
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,6 +935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6341edc7cd4abef43bb8f600f2241ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedSeed: {fileID: 0}
 --- !u!4 &1942790503
 Transform:
   m_ObjectHideFlags: 0

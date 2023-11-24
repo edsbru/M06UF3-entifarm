@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Seeds : MonoBehaviour
 {
     public DataBase dbList;
     public GameObject seedButton;
+    public List<GameObject> inventoryButtons = new List<GameObject>();
+    private PlantSelector plantSelector;
+    
     
     void Start()
     {
+        plantSelector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();
         StartCoroutine(waiter());
     }
 
+    private void Update()
+    {
+        UpdateText();
+    }
 
     IEnumerator waiter()//Parece que Unity tarda en leer la base de datos así que esperamos un poco para que pueda devolver resultados
     {
@@ -29,7 +38,7 @@ public class Seeds : MonoBehaviour
             GameObject tmp = Instantiate(seedButton);
             tmp.transform.SetParent(this.gameObject.transform);
 
-            tmp.GetComponentInChildren<TextMeshProUGUI>().text = dbList.plantsListDB[i].plant;
+            
 
             Plant plantTMP;
 
@@ -41,10 +50,27 @@ public class Seeds : MonoBehaviour
             plantTMP.buy = dbList.plantsListDB[i].buy;
 
             tmp.GetComponent<InventoryPlant>().plant = plantTMP;
+            tmp.GetComponent<InventoryPlant>().plant.quantity = plantTMP.quantity;
+
+           
+
+            inventoryButtons.Add(tmp);
 
         }
 
-
+        UpdateText();
 
     }
+
+    public void UpdateText()
+    {
+        for (int i = 0; i < inventoryButtons.Count; i++) {
+
+            inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = dbList.plantsListDB[i].plant + " " + inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity;
+
+        }
+        
+    }
+
+
 }

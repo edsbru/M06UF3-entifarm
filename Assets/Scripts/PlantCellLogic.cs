@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Threading;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class PlantCellLogic : MonoBehaviour
 {
@@ -33,9 +34,13 @@ public class PlantCellLogic : MonoBehaviour
 
             if(timer >= plantedSeed.time)
             {
-                text.text = "Terminado";
+                text.text = "Collect";
                 isGrown = true;
                 isPlanted = false;
+            }
+            else if (timer >= plantedSeed.time / 2)
+            {
+                text.text = "Growing";
             }
 
         }
@@ -45,7 +50,7 @@ public class PlantCellLogic : MonoBehaviour
 
     public void onPlantCellClick()//al pulsar celda de la planta
     {
-        if (canPlant == true) { 
+        if (canPlant == true && selector.selectedPlant.quantity > 0) { 
              canPlant = false;
              plantedSeed.id_plant = selector.selectedPlant.id_plant;//Recoge los datos de la planta en PlantSelector
              plantedSeed.plant = selector.selectedPlant.plant;
@@ -56,8 +61,25 @@ public class PlantCellLogic : MonoBehaviour
 
              text.text = selector.selectedPlant.plant; //El texto del boton con el nombre
 
-             isPlanted = true;
-             timer = 0;//Reiniciamos temporizador
+            
+            Seeds tmp = GameObject.Find("Content").GetComponent<Seeds>();
+
+            for(int i = 0; i < tmp.inventoryButtons.Count; i++) {
+
+                if(tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.plant == plantedSeed.plant)
+                {
+                    tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity--;
+                    selector.selectedPlant.quantity--;
+                  
+                }
+                  
+            
+            }
+
+
+            isPlanted = true;
+            timer = 0;//Reiniciamos temporizador
+           
         }
         else if (isGrown)
         {
@@ -65,6 +87,17 @@ public class PlantCellLogic : MonoBehaviour
             isGrown = false;
             canPlant = true;
             text.text = " ";
+
+            Seeds tmp = GameObject.Find("Content").GetComponent<Seeds>();
+            for (int i = 0; i < tmp.inventoryButtons.Count; i++)
+            {
+                if (tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.plant == plantedSeed.plant)
+                {
+                    tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity++;
+                    selector.selectedPlant.quantity++;
+
+                }
+            }
             GameObject.Find("MoneyManager").GetComponent<MoneyManager>().AddMoney(plantedSeed.sell);
         }
     }
