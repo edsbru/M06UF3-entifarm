@@ -17,25 +17,24 @@ public class DataBase : MonoBehaviour
 
     void Start()
     {
-        
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();//Abrimos la conexión con la base de datos
 
-        plantsListDB = getPlants();//Esta función pasará por toda la tabla de plantas
-        
+        plantsListDB = getPlants();//Esta devuelve una lista de plantas con todos sus datos de la DB
     }
 
     public List<Plant> getPlants()
     {
-        List<Plant> plantsTMP = new List<Plant>();
+        List<Plant> plantsTMP = new List<Plant>();//creamos una lista de plantas temporal
         
-        IDbCommand cmd = conn.CreateCommand();//Nos permite mandar queries, hay que crear para cada función nueva
+        IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
 
-        cmd.CommandText = "SELECT * FROM plants";//Mandamos la query
+        cmd.CommandText = "SELECT * FROM plants";//"CommandText"Mandamos la query
 
         IDataReader reader = cmd.ExecuteReader();//función que funciona como un iterador de la BD, ahora apunta a null
 
         while (reader.Read())//al hacer reader.Read() le decimos al iterador que vaya a la siguiente casilla
+                             //ESTO SE EJECUTARÁ MIENTRAS HAYA ENTRADAS EN LA TABLA plants
         {
             Plant p = new Plant();//crea una planta
 
@@ -46,10 +45,9 @@ public class DataBase : MonoBehaviour
             p.sell = reader.GetInt32(4);
             p.buy = reader.GetInt32(5);
 
-            plantsTMP.Add(p);
+            plantsTMP.Add(p);//Añadimos la planta a la lista (ahora tiene todos los datos cogidos de DB)
         }
 
-        return plantsTMP;
-        
+        return plantsTMP;//Retornamos la lista con todas las plantas y sus datos
     }
 }

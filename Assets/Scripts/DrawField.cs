@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DrawField : MonoBehaviour
 {
-    [SerializeField] private GameObject cellPrefab;
+    [SerializeField] private GameObject cellPrefab;//Ponemos el prefab de las cell
     [SerializeField] private int defaultX = -350;//Posición X por defecto, donde se instancia el primer botón
     [SerializeField] private int defaultY = 350;//Posición Y por defecto, donde se instancia el primer botón
     [SerializeField] private int xOffset = 260;//Separación X entre casillas

@@ -1,0 +1,28 @@
+using TMPro;
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class MoneyManager : MonoBehaviour
+{
+    public int currentMoney = 0;//Establecemos el contador de dinero a 0
+    TextMeshProUGUI moneyText;//declaramos una variable TMPro donde irá el número en el GO "Money"
+    [SerializeField]TextMeshProUGUI shopMoneyText;
+
+    private void Start()
+    {
+        //metemos en moneyText una referencia al TextMeshPro del GO "Money"
+        moneyText = GameObject.Find("Money").GetComponent<TextMeshProUGUI>();
+    }
+
+    void Update()
+    {
+        moneyText.text = currentMoney.ToString();//Convertimos la variable a STRING para que salga el numero en TMPro
+        shopMoneyText.text = currentMoney.ToString();
+    }
+    
+    public void AddMoney(int _amount)//Función para añadir dinero
+    {
+        currentMoney += _amount;//suma dinero equivalente al parámetro recibido
+    }
+}

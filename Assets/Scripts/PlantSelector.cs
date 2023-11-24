@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class PlantSelector : MonoBehaviour
 {
-    public Plant selectedPlant;
-    public InventoryPlant selectedSeed;
-
+    //Variables en el inspector
+    public Plant selectedPlant;//Aquí se guarda la info de la planta seleccionada
+    public InventoryPlant selectedSeed;//Aquí especificamos que casilla del inventario hemos clicado
 }
