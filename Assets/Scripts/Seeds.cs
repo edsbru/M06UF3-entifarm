@@ -32,7 +32,7 @@ public class Seeds : MonoBehaviour
             GameObject tmp = Instantiate(seedButton);
             tmp.transform.SetParent(this.gameObject.transform);
 
-            Plant plantTMP;
+            Plant plantTMP;//creamos una PLANT temporal
 
             plantTMP.id_plant = dbList.plantsListDB[i].id_plant;
             plantTMP.plant = dbList.plantsListDB[i].plant;
@@ -44,7 +44,7 @@ public class Seeds : MonoBehaviour
             tmp.GetComponent<InventoryPlant>().plant = plantTMP;
             tmp.GetComponent<InventoryPlant>().plant.quantity = plantTMP.quantity;
 
-            inventoryButtons.Add(tmp);
+            inventoryButtons.Add(tmp);//Añadimos el botón generado
         }
         UpdateText();
     }
