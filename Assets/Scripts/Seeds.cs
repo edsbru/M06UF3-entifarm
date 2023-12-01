@@ -15,8 +15,8 @@ public class Seeds : MonoBehaviour
     void Start()
     {
         plantSelector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();//Pillamos el contenido de PlantSelector
-        StartCoroutine(waiter());//Iniciamos la corrutina waiter()
-        
+        //StartCoroutine(waiter());//Iniciamos la corrutina waiter()
+        GenerateSeeds();
     }
 
     private void Update()
@@ -24,15 +24,9 @@ public class Seeds : MonoBehaviour
         UpdateText();//Revisamos la cantidad de semillas a cada Frame
     }
 
-    IEnumerator waiter()//Parece que Unity tarda en leer la base de datos así que esperamos un poco para que pueda devolver resultados
-    {
-        yield return new WaitForSeconds(0.5f);
-        GenerateSeeds();
-    }
-
     private void GenerateSeeds()//generamos la lista de semillas que tenemos disponibles
     {
-
+        //Creamos tantas entradas como plantas haya en la base de datos
         for (int i = 0; i < dbList.plantsListDB.Count; i++)
         {
             GameObject tmp = Instantiate(seedButton);
