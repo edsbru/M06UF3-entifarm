@@ -63,9 +63,10 @@ public class PlantCellLogic : MonoBehaviour
             Seeds tmp = GameObject.Find("Content").GetComponent<Seeds>();
 
             for(int i = 0; i < tmp.inventoryButtons.Count; i++) {
-
+                
                 if(tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.plant == plantedSeed.plant)
                 {
+                    //Disminuye el numero de "quantity" del botón y en la planta que haya en el SELECTOR
                     tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity--;
                     selector.selectedPlant.quantity--;
                 }
@@ -86,8 +87,10 @@ public class PlantCellLogic : MonoBehaviour
 
             for (int i = 0; i < tmp.inventoryButtons.Count; i++)
             {
+                //Si al clicar, el nombre de la planta en la casilla es igual al nombre del botón que generamos
                 if (tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.plant == plantedSeed.plant)
                 {
+                    //Aumenta el numero de "quantity" del botón y en la planta que haya en el SELECTOR
                     tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity++;
                     selector.selectedPlant.quantity++;
                 }
