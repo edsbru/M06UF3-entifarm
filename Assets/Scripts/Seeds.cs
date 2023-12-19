@@ -26,7 +26,7 @@ public class Seeds : MonoBehaviour
 
     IEnumerator waiter()//Parece que Unity tarda en leer la base de datos así que esperamos un poco para que pueda devolver resultados
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         GenerateSeeds();
     }
 

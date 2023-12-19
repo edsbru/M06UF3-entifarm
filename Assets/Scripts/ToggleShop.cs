@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ToggleShop : MonoBehaviour
 {
-    public GameObject shopPanel = GameObject.Find("ShopPanel");
+    public GameObject shopPanel;
 
     private void Start()
     {
+        shopPanel = GameObject.Find("ShopPanel");
         shopPanel.SetActive(false);
     }
     

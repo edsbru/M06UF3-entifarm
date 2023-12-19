@@ -47,6 +47,7 @@ public class PlantCellLogic : MonoBehaviour
 
     public void onPlantCellClick()//al pulsar celda de la planta
     {
+        //Si estamos plantando....
         if (canPlant == true && selector.selectedPlant.quantity > 0) { //Si la casilla está VACÍA y QUEDAN SEMILLAS para plantar
             
             canPlant = false;//Ponemos canPlant a false
@@ -72,6 +73,8 @@ public class PlantCellLogic : MonoBehaviour
             isPlanted = true;//con el bool decimos que ya hay algo plantado
             timer = 0;//Reiniciamos temporizador
         }
+
+        //Si estamos recogiendo....
         else if (isGrown)//SI HAY UNA PLANTA CRECIDA
         {
             //VACIAMOS LA CASILLA
