@@ -10,8 +10,8 @@ public class DrawField : MonoBehaviour
     [SerializeField] private int xOffset = 260;//Separación X entre casillas
     [SerializeField] private int yOffset = 210;//Separación Y entre casillas
 
-    private int sizeX = 4;//Tamaño X de la matriz de casillas
-    private int sizeY = 4;//Tamaño Y de la matriz de casillas
+    public int sizeX = 4;//Tamaño X de la matriz de casillas 
+    public int sizeY = 4;//Tamaño Y de la matriz de casillas
     private int x;//variable usada para ir sumando la separación de las casillas en el eje X
     private int y;//variable usada para ir sumando la separación de las casillas en el eje Y
 
