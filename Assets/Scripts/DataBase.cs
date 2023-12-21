@@ -7,6 +7,8 @@ using System.Data;
 using Mono.Data.Sqlite;
 using static Unity.Burst.Intrinsics.X86.Avx;
 using System;
+using UnityEngine.UI;
+using TMPro;
 //Structs de las tablas de la base de datos
 public struct SavedGame
 {
@@ -58,16 +60,24 @@ public class DataBase : MonoBehaviour
 
     void Start()
     {
+        if (GameObject.Find("DataBase") != this.gameObject)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            GameObject.DontDestroyOnLoad(this);
+        }
+
+
+
+
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();//Abrimos la conexión con la base de datos
 
         plantsListDB = GetPlants();//Esta devuelve una lista de plantas con todos sus datos de la DB
 
-        plantSelector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();
-
-        drawField = GameObject.Find("Field").GetComponent<DrawField>();
-
-        moneyManager = GameObject.Find("MoneyManager").GetComponent<MoneyManager>();
+        
     }
 
     public List<Plant> GetPlants()
@@ -100,9 +110,16 @@ public class DataBase : MonoBehaviour
 
     public void SaveGame() //En esta función seteamos todos los valores a enviar a la base de datos
     {
+        plantSelector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();
+
+        drawField = GameObject.Find("Field").GetComponent<DrawField>();
+
+        moneyManager = GameObject.Find("MoneyManager").GetComponent<MoneyManager>();
+
+
         SavedGame sg;
 
-        //sg.id_savedgame = ;
+        sg.id_savedgame = 1;
         sg.time = plantSelector.gameTime;
         sg.size = drawField.sizeX;
         sg.money = moneyManager.currentMoney;
@@ -110,5 +127,12 @@ public class DataBase : MonoBehaviour
         sg.id_user = user.id_user; //TODO: Implementar logica users
 
 
+    }
+
+    public void CreateUserOnDatabase()
+    {
+        user.id_user = 1;
+        user.user = GameObject.Find("UsernameInputField").GetComponent<TMP_InputField>().text;
+        user.password = GameObject.Find("PasswordInputField").GetComponent<TMP_InputField>().text;
     }
 }
