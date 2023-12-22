@@ -8,52 +8,41 @@ using UnityEngine;
 
 public struct ShopPlant
 {
-    public string growthTime;
-    public string availableSeeds;
-    public string moneyPerPlant;
-    public string plantCost;
+    public float growthTime;
+    public int availableSeeds;
+    public float moneyPerPlant;
+    public float plantCost;
 }
 public class ShopButtonLogic : MonoBehaviour
 {
-    public List<ShopPlant> shopPlantsList;
+   
     public DataBase dbList;
+
+    [SerializeField]
     private TextMeshProUGUI growthTime;
+    [SerializeField]
     private TextMeshProUGUI availableSeeds;
+    [SerializeField]
     private TextMeshProUGUI moneyPerPlant;
+    [SerializeField]
     private TextMeshProUGUI plantCost;
 
     // Start is called before the first frame update
     void Start()
     {
-        growthTime = GetComponentInChildren<TextMeshProUGUI>();
-        availableSeeds = GetComponentInChildren<TextMeshProUGUI>();
-        moneyPerPlant = GetComponentInChildren<TextMeshProUGUI>();
-        plantCost = GetComponentInChildren<TextMeshProUGUI>();
+      
 
-        GenerateShopButtons();
+        dbList = GameObject.Find("DataBase").GetComponent<DataBase>();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetInfo(float _growthTime, int _availableSeeds, float _moneyPerPlant, float _plantCost)
     {
         
-    }
+        growthTime.text = _growthTime.ToString() + " sec";
+        availableSeeds.text = _availableSeeds.ToString() + " seeds";
+        moneyPerPlant.text = _moneyPerPlant.ToString() + "$/plant";
+        plantCost.text = "Cost: " + _plantCost.ToString() + "$";
 
-    private void GenerateShopButtons()
-    {
-        //Genera tantos botones como entradas haya en la BD
-        for (int i = 0; i < dbList.plantsListDB.Count; i++)
-        {
-            //Creamos una planta temporal
-            ShopPlant plantTMP;
-
-            //Le asignamos los valores correspondientes en cada entrada EJ: Nabo
-            plantTMP.growthTime = dbList.plantsListDB[i].time.ToString();//60s que tarda en crecer
-            plantTMP.availableSeeds = dbList.plantsListDB[i].quantity.ToString();//8 semillas que tienes disponibles
-            plantTMP.moneyPerPlant = dbList.plantsListDB[i].sell.ToString();//1$ que te llevas por cada uno
-            plantTMP.plantCost = dbList.plantsListDB[i].buy.ToString();//0$ que cuesta comprarlos
-            
-            shopPlantsList.Add(plantTMP);
-        }
     }
 }

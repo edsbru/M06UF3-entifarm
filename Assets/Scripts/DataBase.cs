@@ -9,6 +9,7 @@ using static Unity.Burst.Intrinsics.X86.Avx;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 //Structs de las tablas de la base de datos
 public struct SavedGame
 {
@@ -52,6 +53,8 @@ public class DataBase : MonoBehaviour
 
     public List<Plant> plantsListDB = new List<Plant>();//Declaramos una lista de plantas
     
+    public List<ShopPlant> shopPlantsListDB = new List<ShopPlant>();//Declaramos lista de plantas de la tienda
+
     private PlantSelector plantSelector;
 
     private DrawField drawField;
@@ -69,15 +72,12 @@ public class DataBase : MonoBehaviour
             GameObject.DontDestroyOnLoad(this);
         }
 
-
-
-
         conn = new SqliteConnection(string.Format("URI=file:{0}", dbName));
         conn.Open();//Abrimos la conexión con la base de datos
 
         plantsListDB = GetPlants();//Esta devuelve una lista de plantas con todos sus datos de la DB
 
-        
+        shopPlantsListDB = GetShopPlants();
     }
 
     public List<Plant> GetPlants()
@@ -108,6 +108,34 @@ public class DataBase : MonoBehaviour
         return plantsTMP;//Retornamos la lista con todas las plantas y sus datos
     }
 
+
+    public List<ShopPlant> GetShopPlants()
+    {
+        List<ShopPlant> shopPlantsTMP = new List<ShopPlant>();//creamos una lista de plantas temporal
+
+        IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
+
+        cmd.CommandText = "SELECT * FROM plants";//"CommandText"Mandamos la query
+
+        IDataReader reader = cmd.ExecuteReader();//función que funciona como un iterador de la BD, ahora apunta a null
+
+        while (reader.Read())//al hacer reader.Read() le decimos al iterador que vaya a la siguiente casilla
+                             //ESTO SE EJECUTARÁ MIENTRAS HAYA ENTRADAS EN LA TABLA plants
+        {
+            ShopPlant sp = new ShopPlant();//crea una shopPlanta
+
+            sp.growthTime = reader.GetFloat(2);//devuelve el id, los ids de las entradas va del 0 al x.
+            sp.availableSeeds = reader.GetInt32(3);
+            sp.moneyPerPlant = reader.GetFloat(4);
+            sp.plantCost = reader.GetFloat(5);
+            
+
+            shopPlantsTMP.Add(sp);//Añadimos la planta a la lista (ahora tiene todos los datos cogidos de DB)
+        }
+
+        return shopPlantsTMP;//Retornamos la lista con todas las plantas y sus datos
+    }
+
     public void SaveGame() //En esta función seteamos todos los valores a enviar a la base de datos
     {
         plantSelector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();
@@ -131,8 +159,17 @@ public class DataBase : MonoBehaviour
 
     public void CreateUserOnDatabase()
     {
-        user.id_user = 1;
+
+        IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
+        
+        
         user.user = GameObject.Find("UsernameInputField").GetComponent<TMP_InputField>().text;
         user.password = GameObject.Find("PasswordInputField").GetComponent<TMP_InputField>().text;
+        
+
+        cmd.CommandText = $"INSERT INTO users (user, password) VALUES (\"{user.user}\", \"{user.password}\")";//Mandamos la query
+        cmd.ExecuteNonQuery();
+
+        SceneManager.LoadScene(1);
     }
 }

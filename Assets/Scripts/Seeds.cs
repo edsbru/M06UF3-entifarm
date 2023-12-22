@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class Seeds : MonoBehaviour
 {
     //Variables del inspector
-    public DataBase dbList;
+    private DataBase dbList;
     public GameObject seedButton;
     public List<GameObject> inventoryButtons = new List<GameObject>();
     private PlantSelector plantSelector;
@@ -15,6 +15,7 @@ public class Seeds : MonoBehaviour
     void Start()
     {
         plantSelector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();//Pillamos el contenido de PlantSelector
+        dbList = GameObject.Find("DataBase").GetComponent<DataBase>();
         StartCoroutine(waiter());//Iniciamos la corrutina waiter()
         
     }

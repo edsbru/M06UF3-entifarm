@@ -274,6 +274,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a7e8e755fbbfc4d9dd9f24013a29d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dbList: {fileID: 0}
+  growthTime: {fileID: 1905329867191760263}
+  availableSeeds: {fileID: 6690782613282399583}
+  moneyPerPlant: {fileID: 1044287760163923413}
+  plantCost: {fileID: 3260280071724806514}
 --- !u!1 &848007632079972791
 GameObject:
   m_ObjectHideFlags: 0
