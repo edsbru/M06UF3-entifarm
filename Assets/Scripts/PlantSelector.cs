@@ -10,7 +10,7 @@ public class PlantSelector : MonoBehaviour
     public Plant selectedPlant;//Aquí se guarda la info de la planta seleccionada
     public InventoryPlant selectedSeed;//Aquí especificamos que casilla del inventario hemos clicado
 
-    public float gameTime = 0;
+    public float gameTime = 0;//timer que guarda el tiempo de juego
 
     private void Update()
     {

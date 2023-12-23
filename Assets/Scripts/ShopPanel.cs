@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class ShopPanel : MonoBehaviour
 {
-    //Este scrit solo sirve para que el panel de la tienda empieze en FALSE
-    void Start()
+    public GameObject shopPanel;
+
+    private void Update()
     {
-        this.gameObject.SetActive(false);
+        PauseTimeWhenShopOpened();
+    }
+
+    void PauseTimeWhenShopOpened()
+    {
+        if (shopPanel.activeSelf)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 }
