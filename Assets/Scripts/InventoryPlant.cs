@@ -8,8 +8,9 @@ public struct Plant
     public string plant;
     public float time;
     public int quantity;
-    public int sell;
-    public int buy;
+    public float sell;
+    public float buy;
+    public int invetoryQuantity;
 } //Struct plant con todos los nombres y tipos de variable de las plantas en la base de datos
 
 public class InventoryPlant : MonoBehaviour
@@ -21,12 +22,13 @@ public class InventoryPlant : MonoBehaviour
     private void Start()
     {
         //Buscar en la escena el objeto PlantSelector
-        selector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>(); 
+        selector = GameObject.Find("PlantSelector").GetComponent<PlantSelector>();
+       
     }
 
     public void setSelectedPlant()
     {
-        if(plant.quantity > 0) {//si el numero de semillas disponibles es mayor a cero
+        if(plant.invetoryQuantity > 0) {//si el numero de semillas disponibles es mayor a cero
             selector.selectedPlant = plant;//pasamos la información de la planta al selector
             selector.selectedSeed = this;//pasamos el GO del botón del inventario
         }

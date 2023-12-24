@@ -45,10 +45,10 @@ public class PlantCellLogic : MonoBehaviour
         }
     }
 
-    public void onPlantCellClick()//al pulsar celda de la planta
+    public void OnPlantCellClick()//al pulsar celda de la planta
     {
         //Si estamos plantando....
-        if (canPlant == true && selector.selectedPlant.quantity > 0) { //Si la casilla está VACÍA y QUEDAN SEMILLAS para plantar
+        if (canPlant == true && selector.selectedPlant.invetoryQuantity > 0) { //Si la casilla está VACÍA y QUEDAN SEMILLAS para plantar
             
             canPlant = false;//Ponemos canPlant a false
             plantedSeed.id_plant = selector.selectedPlant.id_plant;//Recogemos los datos de la planta escogida en PlantSelector
@@ -57,6 +57,7 @@ public class PlantCellLogic : MonoBehaviour
             plantedSeed.quantity = selector.selectedPlant.quantity;
             plantedSeed.sell = selector.selectedPlant.sell;
             plantedSeed.buy = selector.selectedPlant.buy;
+            
 
             text.text = selector.selectedPlant.plant; //Cambiamos el texto del boton con el nombre de la planta plantada
             
@@ -67,8 +68,8 @@ public class PlantCellLogic : MonoBehaviour
                 if(tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.plant == plantedSeed.plant)
                 {
                     //Disminuye el numero de "quantity" del botón y en la planta que haya en el SELECTOR
-                    tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity--;
-                    selector.selectedPlant.quantity--;
+                    tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.invetoryQuantity--;
+                    selector.selectedPlant.invetoryQuantity--;
                 }
             }
             isPlanted = true;//con el bool decimos que ya hay algo plantado
@@ -91,8 +92,8 @@ public class PlantCellLogic : MonoBehaviour
                 if (tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.plant == plantedSeed.plant)
                 {
                     //Aumenta el numero de "quantity" del botón y en la planta que haya en el SELECTOR
-                    tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity++;
-                    selector.selectedPlant.quantity++;
+                    tmp.inventoryButtons[i].GetComponent<InventoryPlant>().plant.invetoryQuantity++;
+                    selector.selectedPlant.invetoryQuantity++;
                 }
             }
             //Añadimos al dinero la cantodad definida en la columna 'sell' de la planta recolectada

@@ -10,13 +10,14 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+
 //Structs de las tablas de la base de datos
 public struct SavedGame
 {
     public int id_savedgame;
     public float time;
     public int size;
-    public decimal money;
+    public float money;
     public DateTime saved;
     public int id_user;
 }
@@ -53,7 +54,7 @@ public class DataBase : MonoBehaviour
 
     public List<Plant> plantsListDB = new List<Plant>();//Declaramos una lista de plantas
     
-    public List<ShopPlant> shopPlantsListDB = new List<ShopPlant>();//Declaramos lista de plantas de la tienda
+    public List<Plant> shopPlantsListDB = new List<Plant>();//Declaramos lista de plantas de la tienda
 
     private PlantSelector plantSelector;
 
@@ -80,13 +81,32 @@ public class DataBase : MonoBehaviour
         shopPlantsListDB = GetShopPlants();
     }
 
+    public void GetUserId()
+    {
+        IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
+
+        cmd.CommandText = "SELECT * FROM users";//Mandamos la query
+        
+        IDataReader reader = cmd.ExecuteReader();//función que funciona como un iterador de la BD, ahora apunta a null
+
+
+        while (reader.Read())
+        {
+            if (user.user == reader.GetString(1))
+            {
+                user.id_user = reader.GetInt32(0);
+            }
+        }
+
+    }
+
     public List<Plant> GetPlants()
     {
         List<Plant> plantsTMP = new List<Plant>();//creamos una lista de plantas temporal
         
         IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
 
-        cmd.CommandText = "SELECT * FROM plants";//"CommandText"Mandamos la query
+        cmd.CommandText = "SELECT * FROM plants";//Mandamos la query
 
         IDataReader reader = cmd.ExecuteReader();//función que funciona como un iterador de la BD, ahora apunta a null
 
@@ -109,9 +129,9 @@ public class DataBase : MonoBehaviour
     }
 
 
-    public List<ShopPlant> GetShopPlants()
+    public List<Plant> GetShopPlants()
     {
-        List<ShopPlant> shopPlantsTMP = new List<ShopPlant>();//creamos una lista de plantas temporal
+        List<Plant> shopPlantsTMP = new List<Plant>();//creamos una lista de plantas temporal
 
         IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
 
@@ -122,12 +142,13 @@ public class DataBase : MonoBehaviour
         while (reader.Read())//al hacer reader.Read() le decimos al iterador que vaya a la siguiente casilla
                              //ESTO SE EJECUTARÁ MIENTRAS HAYA ENTRADAS EN LA TABLA plants
         {
-            ShopPlant sp = new ShopPlant();//crea una shopPlanta
+            Plant sp = new Plant();//crea una Planta
 
-            sp.growthTime = reader.GetFloat(2);//devuelve el id, los ids de las entradas va del 0 al x.
-            sp.availableSeeds = reader.GetInt32(3);
-            sp.moneyPerPlant = reader.GetFloat(4);
-            sp.plantCost = reader.GetFloat(5);
+            sp.id_plant = reader.GetInt32(0);
+            sp.time = reader.GetFloat(2);//devuelve el id, los ids de las entradas va del 0 al x.
+            sp.quantity = reader.GetInt32(3);
+            sp.sell = reader.GetFloat(4);
+            sp.buy = reader.GetFloat(5);
             
 
             shopPlantsTMP.Add(sp);//Añadimos la planta a la lista (ahora tiene todos los datos cogidos de DB)
@@ -144,17 +165,21 @@ public class DataBase : MonoBehaviour
 
         moneyManager = GameObject.Find("MoneyManager").GetComponent<MoneyManager>();
 
+        
 
         SavedGame sg;
-
-        sg.id_savedgame = 1;
         sg.time = plantSelector.gameTime;
         sg.size = drawField.sizeX;
         sg.money = moneyManager.currentMoney;
         sg.saved = DateTime.Now;
-        sg.id_user = user.id_user; //TODO: Implementar logica users
+        sg.id_user = user.id_user;
+
+        IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
+
+        cmd.CommandText = $"INSERT INTO savedgames (time, size, money, saved, id_user) VALUES ('{sg.time}', {sg.size}, {sg.money}, '{sg.saved}', {sg.id_user})";
 
 
+        cmd.ExecuteNonQuery();
     }
 
     public void CreateUserOnDatabase()
@@ -162,13 +187,13 @@ public class DataBase : MonoBehaviour
 
         IDbCommand cmd = conn.CreateCommand();//"CreateCommand()"Nos permite mandar queries, hay que crear para cada función nueva
         
-        
         user.user = GameObject.Find("UsernameInputField").GetComponent<TMP_InputField>().text;
         user.password = GameObject.Find("PasswordInputField").GetComponent<TMP_InputField>().text;
         
-
         cmd.CommandText = $"INSERT INTO users (user, password) VALUES (\"{user.user}\", \"{user.password}\")";//Mandamos la query
         cmd.ExecuteNonQuery();
+
+        GetUserId();
 
         SceneManager.LoadScene(1);
     }

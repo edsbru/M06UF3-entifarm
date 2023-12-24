@@ -6,13 +6,6 @@ using UnityEngine;
 //Botón desactivado si:
     //Si no tienes dinero para comprar la planta
 
-public struct ShopPlant
-{
-    public float growthTime;
-    public int availableSeeds;
-    public float moneyPerPlant;
-    public float plantCost;
-}
 public class ShopButtonLogic : MonoBehaviour
 {
    
@@ -26,12 +19,19 @@ public class ShopButtonLogic : MonoBehaviour
     private TextMeshProUGUI moneyPerPlant;
     [SerializeField]
     private TextMeshProUGUI plantCost;
+    
+
+    private Seeds seedsScript;
+    private MoneyManager moneyManager;
+
+    public Plant buttonPlant;
 
     // Start is called before the first frame update
     void Start()
     {
       
-
+        seedsScript = GameObject.Find("Content").GetComponent<Seeds>();
+        moneyManager = GameObject.Find("MoneyManager").GetComponent<MoneyManager>();
         dbList = GameObject.Find("DataBase").GetComponent<DataBase>();
 
     }
@@ -45,4 +45,29 @@ public class ShopButtonLogic : MonoBehaviour
         plantCost.text = "Cost: " + _plantCost.ToString() + "$";
 
     }
+
+
+    public void BuyPlant()
+    {
+        if (moneyManager.currentMoney >= buttonPlant.buy)
+        {
+            
+            for(int i = 0; i < seedsScript.inventoryButtons.Count; i++)
+            {
+               
+                if (buttonPlant.id_plant == seedsScript.inventoryButtons[i].GetComponent<InventoryPlant>().plant.id_plant) //Miramos si la id de  la planta del boton es la misma que la del inventario
+                {
+                    
+                    moneyManager.currentMoney -= buttonPlant.buy;
+                    seedsScript.inventoryButtons[i].GetComponent<InventoryPlant>().plant.invetoryQuantity += buttonPlant.quantity;
+                    seedsScript.UpdateText();
+                }
+            }
+
+        }
+
+
+
+    }
+
 }

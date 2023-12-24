@@ -5,9 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class SaveAndQuit : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public DataBase dataBase;
+
+    private void Start()
+    {
+        dataBase = GameObject.Find("DataBase").GetComponent<DataBase>();
+
+    }
+
     public void SaveAndChangeToTitle()
     {
+        dataBase.SaveGame();
+
         SceneManager.LoadScene(0);
     }
 }

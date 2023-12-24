@@ -47,19 +47,22 @@ public class Seeds : MonoBehaviour
             plantTMP.quantity = dbList.plantsListDB[i].quantity;
             plantTMP.sell = dbList.plantsListDB[i].sell;
             plantTMP.buy = dbList.plantsListDB[i].buy;
+            plantTMP.invetoryQuantity = dbList.plantsListDB[i].quantity; //Cantidad de plantas en el inventario = cantidad de plantas por 1 compra
 
             tmp.GetComponent<InventoryPlant>().plant = plantTMP;
-            tmp.GetComponent<InventoryPlant>().plant.quantity = plantTMP.quantity;
+            tmp.GetComponent<InventoryPlant>().plant.invetoryQuantity = plantTMP.invetoryQuantity;
 
             inventoryButtons.Add(tmp);
+         
         }
+        
         UpdateText();
     }
 
     public void UpdateText()//Función para actualizar el texto de los botones del inventario a medida que pones y recoges plantas
     {
         for (int i = 0; i < inventoryButtons.Count; i++) {//La función se repetirá mientras queden plantas en la base de datos
-            inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = dbList.plantsListDB[i].plant + " " + inventoryButtons[i].GetComponent<InventoryPlant>().plant.quantity;
+            inventoryButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = dbList.plantsListDB[i].plant + " " + inventoryButtons[i].GetComponent<InventoryPlant>().plant.invetoryQuantity;
         }   
     }
 }

@@ -125,7 +125,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7156430607523819700}
         m_TargetAssemblyTypeName: PlantCellLogic, Assembly-CSharp
-        m_MethodName: onPlantCellClick
+        m_MethodName: OnPlantCellClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
