@@ -49,7 +49,7 @@ public class ShopButtonLogic : MonoBehaviour
 
     public void BuyPlant()
     {
-        if (moneyManager.currentMoney >= buttonPlant.buy)
+        if ((float)moneyManager.currentMoney >= buttonPlant.buy)
         {
             
             for(int i = 0; i < seedsScript.inventoryButtons.Count; i++)
@@ -58,7 +58,7 @@ public class ShopButtonLogic : MonoBehaviour
                 if (buttonPlant.id_plant == seedsScript.inventoryButtons[i].GetComponent<InventoryPlant>().plant.id_plant) //Miramos si la id de  la planta del boton es la misma que la del inventario
                 {
                     
-                    moneyManager.currentMoney -= buttonPlant.buy;
+                    moneyManager.currentMoney -= (decimal)buttonPlant.buy;
                     seedsScript.inventoryButtons[i].GetComponent<InventoryPlant>().plant.invetoryQuantity += buttonPlant.quantity;
                     seedsScript.UpdateText();
                 }

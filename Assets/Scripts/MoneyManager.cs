@@ -1,11 +1,10 @@
 using TMPro;
-using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    public float currentMoney = 0;//Establecemos el contador de dinero a 0
+    public decimal currentMoney = 0;//Establecemos el contador de dinero a 0
     TextMeshProUGUI moneyText;//declaramos una variable TMPro donde irá el número en el GO "Money"
     [SerializeField]TextMeshProUGUI shopMoneyText; //Compoente que lleva la cuenta del dinero
 
@@ -23,6 +22,6 @@ public class MoneyManager : MonoBehaviour
     
     public void AddMoney(float _amount)//Función para añadir dinero
     {
-        currentMoney += _amount;//suma dinero equivalente al parámetro recibido
+        currentMoney += (decimal)_amount;//suma dinero equivalente al parámetro recibido
     }
 }

@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 22969202305656217}
   - component: {fileID: 7884220277869320946}
   - component: {fileID: 5396387995857854047}
+  - component: {fileID: 5486651076514718989}
   m_Layer: 5
   m_Name: SavedGameButton
   m_TagString: Untagged
@@ -393,7 +394,35 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7884220277869320946}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5486651076514718989}
+        m_TargetAssemblyTypeName: SavedGamesLogic, Assembly-CSharp
+        m_MethodName: OnSavedGameButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5486651076514718989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227142612333194476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba805f090245d0c4ba292ed4ead18859, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 0}
+  username: {fileID: 6947240157781313986}
+  playedTime: {fileID: 2842688122282528714}
+  money: {fileID: 4664944192845212060}
 --- !u!1 &4801443562278017017
 GameObject:
   m_ObjectHideFlags: 0
