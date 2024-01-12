@@ -10,7 +10,7 @@ public class SavedGameButtons : MonoBehaviour
     public List<SavedGame> savedGames = new List<SavedGame>();
 
 
-    void Start()
+    void Awake()
     {
         database = GameObject.Find("DataBase").GetComponent<DataBase>();
         StartCoroutine(Waiter());

@@ -47,7 +47,16 @@ public class Seeds : MonoBehaviour
             plantTMP.quantity = dbList.plantsListDB[i].quantity;
             plantTMP.sell = dbList.plantsListDB[i].sell;
             plantTMP.buy = dbList.plantsListDB[i].buy;
-            plantTMP.invetoryQuantity = dbList.plantsListDB[i].quantity; //Cantidad de plantas en el inventario = cantidad de plantas por 1 compra
+
+            if(plantTMP.id_plant == 1)
+            {
+                plantTMP.invetoryQuantity = 8;
+            }
+            else
+            {
+                plantTMP.invetoryQuantity = 0;
+            }
+            //Cantidad de plantas en el inventario = cantidad de plantas por 1 compra
 
             tmp.GetComponent<InventoryPlant>().plant = plantTMP;
             tmp.GetComponent<InventoryPlant>().plant.invetoryQuantity = plantTMP.invetoryQuantity;

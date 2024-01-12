@@ -8,6 +8,7 @@ using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Globalization;
+using System.Collections;
 
 //Structs de las tablas de la base de datos
 public struct SavedGame
@@ -80,7 +81,6 @@ public class DataBase : MonoBehaviour
         conn.Open();//Abrimos la conexión con la base de datos
 
         plantsListDB = GetPlants();//Esta devuelve una lista de plantas con todos sus datos de la DB
-        Debug.Log(GetUsernameByID(1));
         shopPlantsListDB = GetShopPlants();
     }
 
@@ -206,10 +206,22 @@ public class DataBase : MonoBehaviour
         cmd.ExecuteNonQuery();
     }
 
+    IEnumerator waiter(SavedGame _savedGame)
+    {
+        yield return new WaitForSecondsRealtime(0.25f);
+        GameObject.Find("MoneyManager").GetComponent<MoneyManager>().currentMoney = _savedGame.money;
+        GameObject.Find("PlantSelector").GetComponent<PlantSelector>().gameTime = _savedGame.time;
+
+    }
+
     public void LoadGame(SavedGame _savedGame)
     {
         //TODO: Cargar la partida
         SceneManager.LoadScene(1);
+
+        StartCoroutine(waiter(_savedGame));
+
+        
     }
 
     public void CreateUserOnDatabase()
