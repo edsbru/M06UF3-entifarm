@@ -16,8 +16,8 @@ public class MoneyManager : MonoBehaviour
 
     void Update()
     {
-        moneyText.text = currentMoney.ToString();//Convertimos la variable a STRING para que salga el numero en TMPro
-        shopMoneyText.text = currentMoney.ToString();
+        moneyText.text = "Money: " + currentMoney.ToString() + "$";//Convertimos la variable a STRING para que salga el numero en TMPro
+        shopMoneyText.text = "Money: " + currentMoney.ToString() + "$";
     }
     
     public void AddMoney(float _amount)//Función para añadir dinero

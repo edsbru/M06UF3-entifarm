@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-//librerías para usar la BD
-using System.Data;
-using Mono.Data.Sqlite;
 using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Globalization;
 using System.Collections;
+
+//librerías para usar la BD
+using System.Data;
+using Mono.Data.Sqlite;
+
 
 //Structs de las tablas de la base de datos
 public struct SavedGame
@@ -148,6 +149,7 @@ public class DataBase : MonoBehaviour
             Plant sp = new Plant();//crea una Planta
 
             sp.id_plant = reader.GetInt32(0);
+            sp.plant = reader.GetString(1);
             sp.time = reader.GetFloat(2);//devuelve el id, los ids de las entradas va del 0 al x.
             sp.quantity = reader.GetInt32(3);
             sp.sell = reader.GetFloat(4);

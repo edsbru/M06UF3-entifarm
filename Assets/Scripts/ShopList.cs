@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class ShopList : MonoBehaviour
 {
-    //voy a necesitar algo que mire cuantas entradas hay en la base de datos
-    //probaremos a generar un botón por cada entrada que encuentre
     public DataBase dbList;
     public List<GameObject> shopButtons;
     public GameObject shopPanelButtonPrefab;
-
-    
-    
 
     void Start()
     {
@@ -41,7 +36,7 @@ public class ShopList : MonoBehaviour
 
             TMP.transform.SetParent(this.transform);
             TMP.GetComponent<ShopButtonLogic>().buttonPlant = plantTMP;
-            TMP.GetComponent<ShopButtonLogic>().SetInfo(plantTMP.time, plantTMP.quantity, plantTMP.sell, plantTMP.buy);
+            TMP.GetComponent<ShopButtonLogic>().SetInfo(plantTMP.plant, plantTMP.time, plantTMP.quantity, plantTMP.sell, plantTMP.buy);
             
         }
     }

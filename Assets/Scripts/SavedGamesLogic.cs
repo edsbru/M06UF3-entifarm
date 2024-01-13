@@ -15,9 +15,9 @@ public class SavedGamesLogic : MonoBehaviour
     
     public void UpdateText()
     {
-        username.text = database.GetUsernameByID(savedGame.id_user);
-        playedTime.text = savedGame.time.ToString();
-        money.text = savedGame.money.ToString();
+        username.text = "Username: " + database.GetUsernameByID(savedGame.id_user);
+        playedTime.text = "Time played: " + savedGame.time.ToString() + "s";
+        money.text = "Money: " + savedGame.money.ToString() + "$";
     }
 
     public void OnSavedGameButtonClicked()
